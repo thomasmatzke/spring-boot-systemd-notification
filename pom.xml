@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.dm.infrastructure</groupId>
+    <groupId>at.matzke</groupId>
     <artifactId>spring-boot-systemd-notification</artifactId>
     <version>1.0.4-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -21,10 +21,8 @@
 
     <developers>
         <developer>
-            <organization>dmTECH GmbH</organization>
-            <organizationUrl>https://www.dmtech.de</organizationUrl>
-            <name>Fabian Buch</name>
-            <email>fabian.buch@dm.de</email>
+            <name>Thomas Matzke</name>
+            <email>thomas@matzke.at</email>
         </developer>
     </developers>
 
@@ -169,10 +167,9 @@
     </distributionManagement>
 
     <scm>
-        <connection>scm:git:git://github.com/dm-drogeriemarkt/spring-boot-systemd-notification.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/dm-drogeriemarkt/spring-boot-systemd-notification.git
-        </developerConnection>
-        <url>http://github.com/dm-drogeriemarkt/spring-boot-systemd-notification/tree/master</url>
+        <connection>scm:git:git://github.com/thomasmatzke/spring-boot-systemd-notification.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/thomasmatzke/spring-boot-systemd-notification.git</developerConnection>
+        <url>http://github.com/thomasmatzke/spring-boot-systemd-notification/tree/master</url>
     </scm>
 
 </project>
