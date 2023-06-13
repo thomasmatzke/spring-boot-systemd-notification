@@ -1,19 +1,19 @@
 package de.dm.infrastructure.springbootsystemdnotification;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class SystemdNotificationServiceTest {
 
     @Mock
@@ -30,10 +30,10 @@ public class SystemdNotificationServiceTest {
 
     private SystemdNotificationService systemdNotificationService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         System.clearProperty("NOTIFY_SOCKET");
-        when(applicationReadyEvent.getApplicationContext()).thenReturn(context);
+        Mockito.lenient().when(applicationReadyEvent.getApplicationContext()).thenReturn(context);
         systemdNotificationService = new SystemdNotificationService(systemdNotificationProperties, sdNotifyWrapper);
     }
 
@@ -57,7 +57,7 @@ public class SystemdNotificationServiceTest {
 
         systemdNotificationService.onApplicationEvent(applicationReadyEvent);
 
-        verifyZeroInteractions(sdNotifyWrapper);
+        verifyNoInteractions(sdNotifyWrapper);
     }
 
     @Test
@@ -67,6 +67,6 @@ public class SystemdNotificationServiceTest {
 
         systemdNotificationService.onApplicationEvent(applicationReadyEvent);
 
-        verifyZeroInteractions(sdNotifyWrapper);
+        verifyNoInteractions(sdNotifyWrapper);
     }
 }
