@@ -40,7 +40,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<asciidoctor.maven.plugin.version>2.2.4</asciidoctor.maven.plugin.version>
-		<SDNotify.version>1.3</SDNotify.version>
+		<SDNotify.version>1.5</SDNotify.version>
 		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
 	</properties>
 
