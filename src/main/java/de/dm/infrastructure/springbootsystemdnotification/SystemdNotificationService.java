@@ -14,16 +14,11 @@ public class SystemdNotificationService implements ApplicationListener<Applicati
 
     private final SystemdNotificationProperties systemdNotificationProperties;
 
-    private final SystemdNotifier sdNotifyWrapper;
+    private final SystemdNotifier systemdNotifier;
 
-    public SystemdNotificationService(final SystemdNotificationProperties systemdNotificationProperties) {
+    public SystemdNotificationService(final SystemdNotificationProperties systemdNotificationProperties, SystemdNotifier systemdNotifier) {
         this.systemdNotificationProperties = systemdNotificationProperties;
-        this.sdNotifyWrapper = new SDNotifyWrapper();
-    }
-
-    public SystemdNotificationService(final SystemdNotificationProperties systemdNotificationProperties, final SystemdNotifier sdNotifyWrapper) {
-        this.systemdNotificationProperties = systemdNotificationProperties;
-        this.sdNotifyWrapper = sdNotifyWrapper;
+        this.systemdNotifier = systemdNotifier;
     }
 
     @Override
@@ -38,9 +33,9 @@ public class SystemdNotificationService implements ApplicationListener<Applicati
             if (socketName != null) {
 
                 LOG.info("Notifying systemd that application context ({}) is ready! NOTIFY_SOCKET: {}", context.getId(), socketName);
-                this.sdNotifyWrapper.sendMainPID();
-                this.sdNotifyWrapper.sendNotify();
-                this.sdNotifyWrapper.sendStatus("Application Context is ready!");
+                this.systemdNotifier.sendMainPID();
+                this.systemdNotifier.sendNotify();
+                this.systemdNotifier.sendStatus("Application Context is ready!");
             } else {
                 LOG.warn("systemd Notification enabled, but systemd not present (systemd hasn't set env variable 'NOTIFY_SOCKET')");
             }
