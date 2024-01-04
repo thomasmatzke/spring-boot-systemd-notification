@@ -45,11 +45,26 @@ public class SystemdNotificationAutoconfiguration {
       return Executors.newScheduledThreadPool(1);
    }
 
-   @EventListener(value = ApplicationReadyEvent.class, condition = "@environment.getProperty('systemd.notification.enabled')")
+   /**
+    * Contrary to the documentation, the WATCHDOG_USEC environment variable is not
+    * always unset if no timeout was set in the systemd service file.
+    * Under a WSL environment with no defined WatchdogSec property, the
+    * WATCHDOG_USEC environment the WATCHDOG_USEC variable was 10.
+    * To mitigate this behavior we only start watchdog notifications, if
+    * WATCHDOG_USEC >= 1000000.
+    */
+   @EventListener(value = ApplicationReadyEvent.class, condition = "@environment.containsProperty('systemd.notification.enabled') && @environment.containsProperty('WATCHDOG_USEC') && @environment.getProperty('WATCHDOG_USEC', T(java.lang.Integer)) > 0")
    public void startWatchdogTask() {
-      int delaySeconds = Integer.parseInt(watchdogUsecString)/2;
-      LOGGER.info("Started systemd watchdog notification. Interval: {} seconds", delaySeconds/1000000);
-      watchdogNotifierPool().scheduleWithFixedDelay(this.systemdNotifier()::sendWatchdogKeepalive, 0, delaySeconds, TimeUnit.MICROSECONDS);
+      LOGGER.debug("WATCHDOG_USEC={}", this.watchdogUsecString);
+      var watchdogUsecInt = Integer.parseInt(watchdogUsecString);
+      if (watchdogUsecInt < 1000000) {
+         LOGGER.warn("WATCHDOG_USEC < 1000000! Not starting systemd notifications as a workaround for undocumented behavior.");
+         return;
+      }
+      int delaySeconds = watchdogUsecInt / 2;
+      LOGGER.info("Started systemd watchdog notification. Interval: {} seconds", delaySeconds / 1000000);
+      watchdogNotifierPool().scheduleWithFixedDelay(this.systemdNotifier()::sendWatchdogKeepalive, 0, delaySeconds,
+            TimeUnit.MICROSECONDS);
    }
 
 }
