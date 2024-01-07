@@ -51,7 +51,7 @@ public class SystemdNotificationAutoconfiguration {
     * Under a WSL environment with no defined WatchdogSec property, the
     * WATCHDOG_USEC environment the WATCHDOG_USEC variable was 10.
     * To mitigate this behavior we only start watchdog notifications, if
-    * WATCHDOG_USEC >= 1000000.
+    * WATCHDOG_USEC &gt;= 1000000.
     */
    @EventListener(value = ApplicationReadyEvent.class, condition = "@environment.containsProperty('systemd.notification.enabled') && @environment.containsProperty('WATCHDOG_USEC') && @environment.getProperty('WATCHDOG_USEC', T(java.lang.Integer)) > 0")
    public void startWatchdogTask() {
