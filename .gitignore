@@ -25,4 +25,4 @@
 /.nb-gradle/
 
 ### VSCode ###
-.vscode/*
+/.vscode/
