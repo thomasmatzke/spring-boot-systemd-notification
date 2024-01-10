@@ -31,14 +31,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.13</version>
+		<version>3.2.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<asciidoctor.maven.plugin.version>2.2.4</asciidoctor.maven.plugin.version>
 		<SDNotify.version>1.5</SDNotify.version>
 		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
@@ -99,8 +99,7 @@
 						<artifactId>maven-release-plugin</artifactId>
 						<version>${maven-release-plugin.version}</version>
 						<configuration>
-							<tagNameFormat>
-								v@{project.version}-${project.artifactId}</tagNameFormat>
+							<tagNameFormat>v@{project.version}-${project.artifactId}</tagNameFormat>
 						</configuration>
 					</plugin>
 					<plugin>
